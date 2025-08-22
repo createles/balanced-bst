@@ -313,7 +313,7 @@ function rebalanceRecur(currentNode) {
   /* Use inorder traversal method (in this case lowest to highest)
   to efficiently populate the new array to be built
   (left-value (lowest) + center value (higher) + right-value (highest) */ 
-  return leftArray.concat(currentNode.value, rightArray);
+  return leftArray.concat(currentNode.data, rightArray);
 
 }
 /* RECURSIVE approach to find(value)
