@@ -10,7 +10,11 @@ class Node {
 
 class Tree {
   constructor(array) {
-    this.root = buildTree(array); 
+    if (!array || array.length === 0) {
+      this.root = null;
+    } else {
+      this.root = buildTree(array);
+    } 
   }
 
   insert(value) {
@@ -98,23 +102,23 @@ class Tree {
   isBalanced() {
     if (this.root === null) return true;
 
-    // get new sorted array
-    const sortedArray = checkBalanceRecur(this.root);
-
-    this.root = buildTree(sortedArray);
+    return checkBalanceRecur(this.root);
   }
 
   rebalance() {
     if (this.root === null) return null;
 
-    this.root = buildTree(rebalanceRecur(this.root));
+    // get new sorted array
+    const sortedArray = rebalanceRecur(this.root);
+
+    this.root = buildTree(sortedArray);
   }
 }
 
 function buildTree(array) {
   const workingArray = filterDupesAndSort(array);
 
-  return arrayToBSTRecur(workingArray, 0, workingArray.length);
+  return arrayToBSTRecur(workingArray, 0, workingArray.length - 1);
 }
 
 
@@ -332,6 +336,7 @@ function rebalanceRecur(currentNode) {
  }
 */
 
+/*
 let sampleArr = [10, 11, 12, 11, 9, 6, 9];
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -347,4 +352,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 };
 
-prettyPrint(buildTree(sampleArr));
+prettyPrint(buildTree(sampleArr)); 
+*/
+
+export {Tree}
