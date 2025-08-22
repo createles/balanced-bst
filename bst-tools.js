@@ -98,7 +98,16 @@ class Tree {
   isBalanced() {
     if (this.root === null) return true;
 
-    return checkBalanceRecur(this.root);
+    // get new sorted array
+    const sortedArray = checkBalanceRecur(this.root);
+
+    this.root = buildTree(sortedArray);
+  }
+
+  rebalance() {
+    if (this.root === null) return null;
+
+    this.root = buildTree(rebalanceRecur(this.root));
   }
 }
 
@@ -286,6 +295,22 @@ function checkBalanceRecur(currentNode) {
   // if it is balanced, we checked the left and right subtrees
   return checkBalanceRecur(currentNode.left) 
   && checkBalanceRecur(currentNode.right);
+}
+
+function rebalanceRecur(currentNode) {
+  if (currentNode === null) { // if node is null, return empty
+    return [];                // array
+  } 
+
+  // Recursively get array values from left and right tree
+  const leftArray = rebalanceRecur(currentNode.left);
+  const rightArray = rebalanceRecur(currentNode.right);
+
+  /* Use inorder traversal method (in this case lowest to highest)
+  to efficiently populate the new array to be built
+  (left-value (lowest) + center value (higher) + right-value (highest) */ 
+  return leftArray.concat(currentNode.value, rightArray);
+
 }
 /* RECURSIVE approach to find(value)
  function findRecur(currentNode, value) {
